@@ -1,5 +1,13 @@
 #include "main.h"
 
+/**
+  * _token - a function that tokenize a string
+  * @line: a pointer to a string to tokenize
+  * @tokens: pointer to array of pointer return the array of tokens
+  *
+  * Return: number of tokens
+  */
+
 int _token(char *line, char **tokens)
 {
 	int count = 0;

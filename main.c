@@ -1,6 +1,11 @@
 #include "main.h"
 
-int main()
+/**
+  * main - Entry point
+  *
+  * Return: Always 0
+  */
+int main(void)
 {
 	char *line = NULL, **av = NULL;
 	size_t len = 0;
@@ -14,6 +19,7 @@ int main()
 		av = malloc(sizeof(char *) * read);
 		if (av == NULL)
 			exit(EXIT_FAILURE);
+
 		if (read == -1)
 		{
 			printf("\nExiting shell.\n");
@@ -30,12 +36,10 @@ int main()
 				break;
 			}
 		}
-		
 		count = _token(line, av);
 		if (count > 0)
 			_execve(av);
 	}
-
 	free(av);
 	free(line);
 	return (0);
