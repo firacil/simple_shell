@@ -2,23 +2,35 @@
 
 int _execve(char **av)
 {
-        pid_t my_child;
-        int status;
+	char *command = NULL;
+	char *actual = NULL;
 
-	my_child = fork();
-	if (my_child == -1)
+	if (av)
 	{
-		perror("Error");
-		return (-1);
-	}
-	else if (my_child == 0)
-	{
-		if (execve(av[0], av, NULL) == -1)
+		pid_t my_child;
+		int status;
+
+		my_child = fork();
+		if (my_child == -1)
 		{
 			perror("Error");
-			exit(EXIT_FAILURE);
+			return (-1);
+		}
+		else if (my_child == 0)
+		{
+			command = av[0];
+			actual = getpath(command);
+
+			if (execve(actual, av, NULL) == -1)
+			{
+				perror("Error");
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			waitpid(my_child, &status, 0);
 		}
 	}
-	wait(&status);
-        return (0);
+	return (0);
 }

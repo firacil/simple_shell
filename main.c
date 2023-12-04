@@ -1,6 +1,6 @@
 #include "main.h"
 
-int main()
+int main(void)
 {
 	char *line = NULL, **av = NULL;
 	size_t len = 0;
@@ -30,10 +30,10 @@ int main()
 				break;
 			}
 		}
-		
+
 		count = _token(line, av);
-		if (count > 0)
-			_execve(av);
+
+		situation(av);
 	}
 
 	free(av);
