@@ -32,26 +32,26 @@ char *getpath(char *command)
 			if (is_excutable(token))
 			{
 				dirlen = strlen(token);
-
 				fpath = malloc(commlen + dirlen + 2);
 				strcpy(fpath, token);
 				strcat(fpath, "/");
 				strcat(fpath, command);
 				strcat(fpath, "\0");
-
 				if (stat(fpath, &buffer) == 0)
 				{
 					free(valcp);
 					return (fpath);
 				}
 				else
-				{
 					free(fpath);
 					token = strtok(NULL, ":");
-				}
 			}
 		}
 		free(valcp);
+		if (stat(command, &buffer) == 0)
+		{
+			return (command);
+		}
 		return (NULL);
 	}
 	return (NULL);
