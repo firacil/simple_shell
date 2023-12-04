@@ -1,5 +1,13 @@
 #include "main.h"
 
+<<<<<<< HEAD
+=======
+/**
+  * main - Entry point
+  *
+  * Return: Always 0
+  */
+>>>>>>> a672de6063de7f4c4162db7fd79b7761a56e75ba
 int main(void)
 {
 	char *line = NULL, **av = NULL;
@@ -14,6 +22,7 @@ int main(void)
 		av = malloc(sizeof(char *) * read);
 		if (av == NULL)
 			exit(EXIT_FAILURE);
+
 		if (read == -1)
 		{
 			printf("\nExiting shell.\n");
@@ -30,12 +39,14 @@ int main(void)
 				break;
 			}
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> a672de6063de7f4c4162db7fd79b7761a56e75ba
 		count = _token(line, av);
 
 		situation(av);
 	}
-
 	free(av);
 	free(line);
 	return (0);
