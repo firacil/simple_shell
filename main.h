@@ -12,14 +12,21 @@
 extern char **environ;
 
 /* Functions Prototype*/
+
 int _putchar(char c);
 int is_excutable(const char *path);
 char *getpath(char *command);
 int _execve(char **av);
 int _token(char *line, char **tokens);
+
+/* Builtins */
+
 void currentenv(void);
 void myexit(void);
 char *situation(char **argv);
 void cdd(char **argv);
+
+/* Strings */
+int _strcmp(const char *s1, const char *s2);
 
 #endif
