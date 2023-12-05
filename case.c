@@ -10,17 +10,17 @@ char *situation(char **argv)
 	{
 		;
 	}
-	else if (strcmp(argv[0], "exit") == 0)
+	else if (_strcmp(argv[0], "exit") == 0)
 	{
 		myexit();
 		return (NULL);
 	}
-	else if (strcmp(argv[0], "cd") == 0)
+	else if (_strcmp(argv[0], "cd") == 0)
 	{
 		cdd(argv);
 		return (NULL);
 	}
-	else if (strcmp(argv[0], "env") == 0)
+	else if (_strcmp(argv[0], "env") == 0)
 	{
 		currentenv();
 		return (NULL);
