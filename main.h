@@ -13,9 +13,11 @@ extern char **environ;
 
 /* Functions Prototype*/
 
+void _puts(char *s);
 int _putchar(char c);
 int is_excutable(const char *path);
 char *getpath(char *command);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 int _execve(char **av);
 int _token(char *line, char **tokens);
 

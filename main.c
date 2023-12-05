@@ -15,7 +15,7 @@ int main(void)
 
 	while (1)
 	{
-		printf("$ ");
+		_puts("$ ");
 		read = getline(&line, &len, stdin);
 		av = malloc(sizeof(char *) * read);
 		if (av == NULL)

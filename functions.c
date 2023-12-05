@@ -20,3 +20,11 @@ int _strcmp(const char *s1, const char *s2)
 
 	return (*s1 - *s2);
 }
+
+/* functions that will be written in this file */
+
+/* _strtok (eisra) */
+/* _strcpy (eisra) */
+/* _strlen (firaol) */
+/* _strdup (firaol) */
+/* _strcmp (firaol(done) */

@@ -38,6 +38,6 @@ void currentenv(void)
 
 	for (env; *env != NULL; env++)
 	{
-		printf("%s\n", *env);
+		_puts(*env);
 	}
 }

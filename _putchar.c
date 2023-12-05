@@ -11,3 +11,16 @@ int _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
+
+/**
+ * Description here
+ */
+
+void _puts(char *s)
+{
+	while (*s != '\0')
+	{
+		write(1, s, 1);
+		s++;
+	}
+}
