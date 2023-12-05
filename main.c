@@ -41,8 +41,16 @@ int main(void)
 
 		situation(av);
 
-		free(av);
+		int i;
+
+		for (i = 0; i < count; i++)
+		{
+			free(av[i]);
+		}
+
+		/*free(av);*/
 	}
+	free (av);
 	free(line);
 	return (0);
 }

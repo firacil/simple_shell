@@ -18,9 +18,22 @@ int _token(char *line, char **tokens)
 	while (token != NULL)
 	{
 		tokens[count] = strdup(token);
+
+		if (tokens[count] == NULL)
+		{
+			perror("strdup failed");
+			exit(EXIT_FAILURE);
+		}
 		count++;
 		token = strtok(NULL, delim);
 	}
 	tokens[count] = NULL;
+
+	if (token == NULL && count == 0)
+	{
+		free(tokens);
+		return (-1);
+	}
+
 	return (count);
 }
