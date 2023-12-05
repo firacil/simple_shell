@@ -43,9 +43,12 @@ char *getpath(char *command)
 					return (fpath);
 				}
 				else
+				{
 					free(fpath);
-					token = strtok(NULL, ":");
+				}
 			}
+			
+			token = strtok(NULL, ":");
 		}
 		free(valcp);
 		if (stat(command, &buffer) == 0)

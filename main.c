@@ -40,8 +40,9 @@ int main(void)
 		count = _token(line, av);
 
 		situation(av);
+
+		free(av);
 	}
-	free(av);
 	free(line);
 	return (0);
 }

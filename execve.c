@@ -38,6 +38,8 @@ int _execve(char **av)
 		else
 		{
 			waitpid(my_child, &status, 0);
+
+			free(actual);
 		}
 	}
 	return (0);
