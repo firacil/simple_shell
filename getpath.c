@@ -23,8 +23,8 @@ char *getpath(char *command)
 
 	if (value != NULL)
 	{
-		valcp = strdup(value);
-		commlen = strlen(command);
+		valcp = _strdup(value);
+		commlen = _strlen(command);
 		char *token = strtok(valcp, ":");
 
 		while (token != NULL)

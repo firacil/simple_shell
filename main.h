@@ -26,9 +26,12 @@ int _token(char *line, char **tokens);
 void currentenv(void);
 void myexit(void);
 char *situation(char **argv);
-void cdd(char **argv);
+void change_dir(char **arg);
+char *get_currentdir(void);
 
 /* Strings */
 int _strcmp(const char *s1, const char *s2);
+int _strlen(const char *s);
+char *_strdup(const char *src);
 
 #endif

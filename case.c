@@ -17,8 +17,7 @@ char *situation(char **argv)
 	}
 	else if (_strcmp(argv[0], "cd") == 0)
 	{
-		cdd(argv);
-		return (NULL);
+		change_dir(argv);	
 	}
 	else if (_strcmp(argv[0], "env") == 0)
 	{
