@@ -35,5 +35,5 @@ int _token(char *line, char **tokens)
 		return (-1);
 	}
 
-	return (count);
+	return (0);
 }

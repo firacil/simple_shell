@@ -16,8 +16,8 @@ int main(void)
 	while (1)
 	{
 		_puts("$ ");
-		read = getline(&line, &len, stdin);
-		av = malloc(sizeof(char *) * read);
+		read = _getline(&line, &len);
+		av = malloc(sizeof(char *) * MAX_READ);
 		if (av == NULL)
 			exit(EXIT_FAILURE);
 
