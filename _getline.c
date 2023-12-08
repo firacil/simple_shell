@@ -64,8 +64,8 @@ ssize_t _getline(char **lineptr, size_t *n)
 				perror("realloc");
 				exit(EXIT_FAILURE);
 			}
-			*n * 2;
+			*n *= 2;
 		}
-		(*lineptr)[i++] = (char)x;
+		(lineptr)[i++];
 	}
 }
