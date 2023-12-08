@@ -1,9 +1,10 @@
 #include "main.h"
 
 /**
- * Description here..
+ * situation - a function check the enterd command
+ * @argv: pointer to array of pointer holp the command
+ * Return: a char type pointer
  */
-
 char *situation(char **argv)
 {
 	if (argv[0] == NULL)
@@ -17,7 +18,7 @@ char *situation(char **argv)
 	}
 	else if (_strcmp(argv[0], "cd") == 0)
 	{
-		change_dir(argv);	
+		change_dir(argv);
 	}
 	else if (_strcmp(argv[0], "env") == 0)
 	{

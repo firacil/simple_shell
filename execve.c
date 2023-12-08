@@ -15,7 +15,7 @@ int _execve(char **av)
 	{
 		pid_t my_child;
 		int status;
-	
+
 		my_child = fork();
 		if (my_child == -1)
 		{

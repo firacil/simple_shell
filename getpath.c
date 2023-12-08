@@ -1,19 +1,20 @@
 #include "main.h"
 
 /**
- * Description here
- *
- */
-
+  * is_excutable - description
+  * @path: a char pointer parameter
+  * Return: int
+  */
 int is_excutable(const char *path)
 {
 	return (access(path, X_OK) == 0);
 }
 
 /**
- * Description Here.
- */
-
+  * getpath - description
+  * @command: a char type pointer
+  * Return: pointer to
+  */
 char *getpath(char *command)
 {
 	char *valcp, *fpath, *token;
@@ -43,18 +44,13 @@ char *getpath(char *command)
 					return (fpath);
 				}
 				else
-				{
 					free(fpath);
-				}
 			}
-			
 			token = strtok(NULL, ":");
 		}
 		free(valcp);
 		if (stat(command, &buffer) == 0)
-		{
 			return (command);
-		}
 		return (NULL);
 	}
 	return (NULL);

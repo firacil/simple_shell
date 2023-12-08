@@ -19,10 +19,7 @@ int main(void)
 		read = _getline(&line, &len);
 		av = malloc(sizeof(char *) * MAX_READ);
 		if (av == NULL)
-		{
 			exit(EXIT_FAILURE);
-		}
-
 		if (read <= 0)
 		{
 			printf("\nExiting shell.\n");
@@ -30,7 +27,6 @@ int main(void)
 			free(av);
 			exit(EXIT_FAILURE);
 		}
-
 		for (i = 0; i < read; i++)
 		{
 			if (line[i] == '\n')
@@ -40,18 +36,11 @@ int main(void)
 			}
 		}
 		count = _token(line, av);
-		
-		if(count >= 0)
-		{
+		if (count >= 0)
 			situation(av);
-		}
 
 		for (i = 0; i < count; i++)
-		{
 			free(av[i]);
-		}
-
-		/*free(av);*/
 	}
 	free(av);
 	free(line);

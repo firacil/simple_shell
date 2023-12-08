@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * Description
+ * myexit - a function exits the shell
+ * Return: Nothing
  */
-
 void myexit(void)
 {
 	exit(0);
@@ -11,15 +11,16 @@ void myexit(void)
 
 #define PREV_DIR_ENV "OLDPWD"
 /**
- * description here
+ * change_dir - a function implement the builtin command cd
+ * @arg: pointer to array of pointer
+ * Return: Nothing
  */
-
 void change_dir(char **arg)
 {
 	/* get current directory */
 	char *curdir = get_currentdir();
 	char *prevdir = getenv(PREV_DIR_ENV);
-	
+
 	if (curdir == NULL)
 	{
 		perror("get_currentdir");
@@ -37,39 +38,29 @@ void change_dir(char **arg)
 		if (prevdir != NULL)
 		{
 			if (chdir(prevdir) != 0)
-			{
-				perror ("cd");
-			}
+				perror("cd");
 			/* swap current and previous directories in environment variable */
 			_puts(prevdir);
 			_puts("\n");
 			setenv(PREV_DIR_ENV, curdir, 1);
 		}
 		else
-		{
 			return;
-		}
 	}
-	else 
+	else
 	{
 		if (chdir(arg[1]) != 0) /* change to specfied dir*/
-		{
 			perror("cd");
-		}
 		else
-		{
-			/* update nev var with current dir */
 			setenv(PREV_DIR_ENV, curdir, 1);
-		}
 	}
-	/* free space used for current directory*/
 	free(curdir);
 }
 
 /**
- * descrption here
+ * currentenv - a function mplement the built-in env command
+ * Return: Nothign
  */
-
 void currentenv(void)
 {
 	char **env = environ;
@@ -81,13 +72,12 @@ void currentenv(void)
 		env++;
 	}
 }
-
-/*
- * Descrption here.
- */
-
 #define MAX_PATH 4096
-
+/**
+ * get_currentdir - a function check the current working directory
+ *
+ * Return: a char type pointer
+ */
 char *get_currentdir(void)
 {
 	/* allocating mem for buffer that store current working directory*/

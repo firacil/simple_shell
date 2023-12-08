@@ -1,9 +1,11 @@
 #include "main.h"
 
 /**
- * Descrption here
- */
-
+  * _strcmp - a function that check length of string
+  * @s1: a char type pointer to string one
+  * @s2: a char type pointer to string two
+  * Return: the difference in length
+  */
 int _strcmp(const char *s1, const char *s2)
 {
 	while (*s1 != '\0' && *s2 != '\0')
@@ -22,9 +24,10 @@ int _strcmp(const char *s1, const char *s2)
 }
 
 /**
- * Description here
- */
-
+  * _strlen - a function that get the length of string
+  * @s: the string
+  * Return: the length of the string
+  */
 size_t _strlen(const char *s)
 {
 	size_t len = 0;
@@ -36,10 +39,11 @@ size_t _strlen(const char *s)
 	return (len);
 }
 
-/*
- * Description here
- */
-
+/**
+  * _strdup - a function that duplicate a given string
+  * @src: the string
+  * Return: a char type pointer point to the duplicated string
+  */
 char *_strdup(const char *src)
 {
 	int i, len = _strlen(src);

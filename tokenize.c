@@ -33,7 +33,7 @@ int _token(char *line, char **tokens)
 	if (token == NULL && count == 0)
 	{
 		free(tokens);
-		return(-1);
+		return (-1);
 	}
 	return (count);
 }
