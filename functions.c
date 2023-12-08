@@ -68,9 +68,24 @@ char *_strdup(const char *src)
 	return (dup);
 }
 
+char *_strcpy(const char *s)
+{
+	size_t i, len = 0;
+	char *cpy;
+
+	len = 1 + _strlen(s);
+	cpy = malloc(len * sizeof(char));
+	if (cpy == NULL)
+		return (NULL);
+
+	for (i = 0; i < len; i++)
+		cpy[i] = s[i];
+
+	cpy[len] = '\0';
+	return (cpy);
+}
 /* functions that will be written in this file */
 
-/* _strtok (eisra) */
 /* _strcpy (eisra) */
 /* _strlen (firaol) (done) */
 /* _strdup (firaol) */
