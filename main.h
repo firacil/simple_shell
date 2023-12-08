@@ -36,5 +36,6 @@ char *get_currentdir(void);
 int _strcmp(const char *s1, const char *s2);
 size_t _strlen(const char *s);
 char *_strdup(const char *src);
+char *_strcpy(const char *s);
 
 #endif
