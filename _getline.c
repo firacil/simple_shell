@@ -12,16 +12,17 @@
 
 ssize_t _getline(char **lineptr, size_t *n)
 {
+	static char buffer[READ_SIZE];
+	static ssize_t buf_pos = 0;
+	static ssize_t buf_size = 0, k = 0;
+	size_t i = 0, j;
+	int x;
+	char *tmp = NULL;
+
 	if (lineptr == NULL || n == NULL)
 	{
 		return (-1); /* Invalid argument */
 	}
-
-	static char buffer[READ_SIZE];
-	static size_t buf_pos = 0;
-	static ssize_t buf_size = 0;
-	size_t i = 0, j;
-	int x;
 
 	while(1)
 	{
@@ -30,7 +31,7 @@ ssize_t _getline(char **lineptr, size_t *n)
 			buf_size = read(STDIN_FILENO, buffer, READ_SIZE); /* buf is empty, read more charachters */
 			if(buf_size <= 0)
 			{
-				return (i == 0 ? buf_size : i); /* -1 for error and 0 for eof */
+				return (k == 0 ? buf_size : k); /* -1 for error and 0 for eof */
 			}
 			buf_pos = 0;
 		}
@@ -66,6 +67,6 @@ ssize_t _getline(char **lineptr, size_t *n)
 			}
 			*n *= 2;
 		}
-		(lineptr)[i++];
+		(lineptr)[i++] = tmp;
 	}
 }

@@ -10,14 +10,12 @@ int _execve(char **av)
 {
 	char *command = NULL;
 	char *actual = NULL;
-	pid_t my_child;
-	int status;
 
 	if (av)
 	{
 		pid_t my_child;
 		int status;
-
+	
 		my_child = fork();
 		if (my_child == -1)
 		{
@@ -31,7 +29,7 @@ int _execve(char **av)
 
 			if (execve(actual, av, NULL) == -1)
 			{
-				perror("Error");
+				perror("/hsh");
 				exit(EXIT_FAILURE);
 			}
 		}

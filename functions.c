@@ -25,9 +25,9 @@ int _strcmp(const char *s1, const char *s2)
  * Description here
  */
 
-int _strlen(const char *s)
+size_t _strlen(const char *s)
 {
-	int len = 0;
+	size_t len = 0;
 
 	while (s[len] != '\0')
 	{
@@ -42,21 +42,18 @@ int _strlen(const char *s)
 
 char *_strdup(const char *src)
 {
+	int i, len = _strlen(src);
+	char *dup = (char *)malloc(len + 1);
+
 	if (src == NULL)
 	{
 		return (NULL);
 	}
 
-	int len = _strlen(src);
-
-	char *dup = (char *)malloc(len + 1);
-
 	if (dup == NULL)
 	{
 		return (NULL);
 	}
-
-	int i;
 
 	for (i = 0; i < len; i++)
 	{

@@ -18,15 +18,13 @@ void change_dir(char **arg)
 {
 	/* get current directory */
 	char *curdir = get_currentdir();
-
+	char *prevdir = getenv(PREV_DIR_ENV);
+	
 	if (curdir == NULL)
 	{
 		perror("get_currentdir");
 		return;
 	}
-
-	/* get the previos one from environment variable*/
-	char *prevdir = getenv(PREV_DIR_ENV);
 
 	if (arg[1] == NULL)
 	{
@@ -43,6 +41,8 @@ void change_dir(char **arg)
 				perror ("cd");
 			}
 			/* swap current and previous directories in environment variable */
+			_puts(prevdir);
+			_puts("\n");
 			setenv(PREV_DIR_ENV, curdir, 1);
 		}
 		else
@@ -74,9 +74,11 @@ void currentenv(void)
 {
 	char **env = environ;
 
-	for (env; *env != NULL; env++)
+	while (*env != NULL)
 	{
 		_puts(*env);
+		_puts("\n");
+		env++;
 	}
 }
 

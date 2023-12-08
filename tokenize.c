@@ -15,6 +15,7 @@ int _token(char *line, char **tokens)
 	const char *delim = " \n";
 
 	token = strtok(line, delim);
+
 	while (token != NULL)
 	{
 		tokens[count] = strdup(token);
@@ -32,8 +33,7 @@ int _token(char *line, char **tokens)
 	if (token == NULL && count == 0)
 	{
 		free(tokens);
-		return (-1);
+		return(-1);
 	}
-
-	return (0);
+	return (count);
 }

@@ -16,7 +16,7 @@ int is_excutable(const char *path)
 
 char *getpath(char *command)
 {
-	char *valcp, *fpath;
+	char *valcp, *fpath, *token;
 	int commlen, dirlen;
 	struct stat buffer;
 	char *value = getenv("PATH");
@@ -25,7 +25,7 @@ char *getpath(char *command)
 	{
 		valcp = _strdup(value);
 		commlen = _strlen(command);
-		char *token = strtok(valcp, ":");
+		token = strtok(valcp, ":");
 
 		while (token != NULL)
 		{
