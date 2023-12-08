@@ -68,6 +68,12 @@ char *_strdup(const char *src)
 	return (dup);
 }
 
+/**
+  * _strcpy - a function that copies the string
+  * @s: the string
+  *
+  * Return: A pointer to the copied string
+  */
 char *_strcpy(const char *s)
 {
 	size_t i, len = 0;
@@ -84,9 +90,3 @@ char *_strcpy(const char *s)
 	cpy[len] = '\0';
 	return (cpy);
 }
-/* functions that will be written in this file */
-
-/* _strcpy (eisra) */
-/* _strlen (firaol) (done) */
-/* _strdup (firaol) */
-/* _strcmp (firaol(done) */
