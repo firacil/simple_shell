@@ -23,13 +23,14 @@ char *getpath(char *command);
 ssize_t _getline(char **lineptr, size_t *n);
 int _execve(char **av);
 int _token(char *line, char **tokens);
+int _atoi(const char *s);
 
 /* Builtins */
 
 void currentenv(void);
-void myexit(void);
-char *situation(char **argv);
+int myexit(char **av);
 void change_dir(char **arg);
+int situation(char **argv);
 char *get_currentdir(void);
 
 /* Strings */

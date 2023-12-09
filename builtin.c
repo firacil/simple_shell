@@ -2,11 +2,21 @@
 
 /**
  * myexit - a function exits the shell
- * Return: Nothing
+ * @av: argument passed
+ * Return: status which helps to exit.
  */
-void myexit(void)
+int myexit(char **av)
 {
-	exit(0);
+	int ex_stat = EXIT_SUCCESS;
+
+	if (av[1] != NULL)
+	{
+		ex_stat = _atoi(av[1]);
+	}
+
+	free(av);
+	exit(ex_stat);
+	return (ex_stat);
 }
 
 #define PREV_DIR_ENV "OLDPWD"

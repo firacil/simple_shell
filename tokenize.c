@@ -37,3 +37,39 @@ int _token(char *line, char **tokens)
 	}
 	return (count);
 }
+
+/**
+ * _atoi - converts string of charchters to integer.
+ * @s: string charchter to be converted.
+ * Return: result of _atoi
+ */
+
+int _atoi(const char *s)
+{
+	int res = 0;
+	int sign = 1;
+
+	/* skip leading whitespace */
+
+	while (*s == ' ' || (*s >= 9 && *s <= 13))
+	{
+		s++;
+	}
+
+	/* handle sign */
+	if (*s == '-' || *s == '+')
+	{
+		sign = (*s++ == '-') ? -1 : 1;
+	}
+
+	/* process each char until nondigit comes in */
+
+	while (*s >= '0' && *s <= '9')
+	{
+		res = res * 10 + (*s++ - '0');
+	}
+
+	/* applying sign */
+
+	return (sign * res);
+}
