@@ -24,7 +24,7 @@ int main(void)
 		{
 			printf("\nExiting shell.\n");
 			free(line);
-			free(av);
+			_free(av);
 			exit(EXIT_FAILURE);
 		}
 		for (i = 0; i < read; i++)
@@ -38,11 +38,9 @@ int main(void)
 		count = _token(line, av);
 		if (count >= 0)
 			situation(av);
-
-		for (i = 0; i < count; i++)
-			free(av[i]);
+		_free(av);
 	}
-	free(av);
+	_free(av);
 	free(line);
 	return (0);
 }
