@@ -24,6 +24,8 @@ ssize_t _getline(char **lineptr, size_t *n);
 int _execve(char **av);
 int _token(char *line, char **tokens);
 int _atoi(const char *s);
+char *_strtok(char *s, const char *delim);
+void _free(char **s);
 
 /* Builtins */
 

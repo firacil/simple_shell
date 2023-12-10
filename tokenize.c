@@ -14,11 +14,11 @@ int _token(char *line, char **tokens)
 	char *token = NULL;
 	const char *delim = " \n";
 
-	token = strtok(line, delim);
+	token = _strtok(line, delim);
 
 	while (token != NULL)
 	{
-		tokens[count] = strdup(token);
+		tokens[count] = _strdup(token);
 
 		if (tokens[count] == NULL)
 		{
@@ -26,13 +26,13 @@ int _token(char *line, char **tokens)
 			exit(EXIT_FAILURE);
 		}
 		count++;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	tokens[count] = NULL;
 
 	if (token == NULL && count == 0)
 	{
-		free(tokens);
+		_free(tokens);
 		return (-1);
 	}
 	return (count);
