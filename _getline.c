@@ -1,12 +1,18 @@
 #include "main.h"
 
 /**
+  * _strtok - a function splits a string into tokens
+  * @s: the string to be tokenized
+  * @delim: the delimiter characters
+  *
+  * Return: a pointer to the next token, NULL otherwise
   */
 char *_strtok(char *s, const char *delim)
 {
-	static char *last = NULL;
+	static char *last;
 	char *start;
 
+	last = NULL;
 	if (s == NULL)
 		s = last;
 
