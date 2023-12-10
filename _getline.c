@@ -1,6 +1,33 @@
 #include "main.h"
 
-/*eisras strtok */
+/**
+  */
+char *_strtok(char *s, const char *delim)
+{
+	static char *last = NULL;
+	char *start;
+
+	if (s == NULL)
+		s = last;
+
+	while (*s != '\0' && strchr(delim, *s) != NULL)
+		s++;
+
+	if (*s == '\0')
+		return (NULL);
+
+	start = s;
+	while (*s != '\0' && strchr(delim, *s) == NULL)
+		s++;
+
+	if (*s != '\0')
+	{
+		*s = '\0';
+		s++;
+	}
+	last = s;
+	return (start);
+}
 
 /**
   * _getline - reads an entire line from shell
@@ -39,7 +66,6 @@ ssize_t _getline(char **lineptr, size_t *n)
 				perror("malloc"), exit(EXIT_FAILURE);
 			for (j = 0; j < i; j++)
 				(*lineptr)[j] = buffer[j];
-
 			(*lineptr)[i] = '\0'; /* null terminator to the string */
 			return (i + 1); /* return num of char readed and new line also that's + 1*/
 		}
@@ -52,4 +78,5 @@ ssize_t _getline(char **lineptr, size_t *n)
 		}
 		(lineptr)[i++] = tmp;
 	}
+	_free(lineptr);
 }
