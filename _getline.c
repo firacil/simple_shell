@@ -9,10 +9,9 @@
   */
 char *_strtok(char *s, const char *delim)
 {
-	static char *last;
+	static char *last = NULL;
 	char *start;
 
-	last = NULL;
 	if (s == NULL)
 		s = last;
 
