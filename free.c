@@ -15,5 +15,7 @@ void _free(char **s)
 		len = _strlen(*s);
 		for (i = 0; i < len; i++)
 			free(s[i]);
+
+		free(s);
 	}
 }
