@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include "main.h"
 
 /**
  * _putchar - writes the character c to stdout
@@ -17,11 +17,14 @@ int _putchar(char c)
  *
  * Return: Nothing
  */
-void _puts(char *s)
+void _puts(const char *s)
 {
-	while (*s != '\0')
+	size_t i = 0;
+
+	while (s[i] != '\0')
 	{
-		write(1, s, 1);
+		write(STDOUT_FILENO, &s[i], 1);
 		s++;
 	}
+	fflush(stdout);
 }
