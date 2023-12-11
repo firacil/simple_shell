@@ -46,23 +46,20 @@ size_t _strlen(const char *s)
   */
 char *_strdup(const char *src)
 {
-	int i, len = _strlen(src);
-	char *dup = (char *)malloc(len + 1);
+	size_t i, len = 0;
+	char *dup;
 
+	len = 1 + _strlen(src);
 	if (src == NULL)
-	{
 		return (NULL);
-	}
 
+	dup = malloc(len * sizeof(char));
 	if (dup == NULL)
-	{
 		return (NULL);
-	}
 
 	for (i = 0; i < len; i++)
-	{
 		dup[i] = src[i];
-	}
+
 	dup[len] = '\0';
 
 	return (dup);
@@ -80,6 +77,9 @@ char *_strcpy(const char *s)
 	char *cpy;
 
 	len = 1 + _strlen(s);
+	if (s == NULL)
+		return (NULL);
+
 	cpy = malloc(len * sizeof(char));
 	if (cpy == NULL)
 		return (NULL);
