@@ -24,7 +24,7 @@ void _puts(const char *s)
 	while (s[i] != '\0')
 	{
 		write(STDOUT_FILENO, &s[i], 1);
-		s++;
+		i++;
 	}
 	fflush(stdout);
 }

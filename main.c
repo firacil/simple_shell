@@ -15,7 +15,9 @@ int main(void)
 
 	while (1)
 	{
-		_puts("$ ");
+		if (isatty(STDIN_FILENO))
+			_puts("$ ");
+		
 		read = _getline(&line, &len);
 		av = malloc(sizeof(char *) * MAX_READ);
 		if (av == NULL)
@@ -38,7 +40,7 @@ int main(void)
 		count = _token(line, av);
 		if (count >= 0)
 			situation(av);
-		_free(av);
+
 	}
 	_free(av);
 	free(line);

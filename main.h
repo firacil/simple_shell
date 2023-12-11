@@ -16,7 +16,7 @@ extern char **environ;
 
 /* Functions Prototype*/
 
-void _puts(char *s);
+void _puts(const char *s);
 int _putchar(char c);
 int is_excutable(const char *path);
 char *getpath(char *command);

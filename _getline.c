@@ -9,7 +9,7 @@
   */
 char *_strtok(char *s, const char *delim)
 {
-	static char *last = NULL;
+	static char *last;
 	char *start;
 
 	if (s == NULL)
@@ -49,11 +49,10 @@ ssize_t _getline(char **lineptr, size_t *n)
 	static ssize_t buf_size, k;
 	size_t i = 0, j;
 	int x;
-	char *tmp = NULL;
+	*lineptr = (char *)malloc(i + 1);
 
 	if (lineptr == NULL || n == NULL)
 		return (-1); /* Invalid argument */
-
 	while (1)
 	{
 		if (buf_pos == buf_size)
@@ -66,9 +65,6 @@ ssize_t _getline(char **lineptr, size_t *n)
 		x = buffer[buf_pos++];
 		if (x == '\n' || x == EOF)
 		{
-			*lineptr = (char *)malloc(i + 1); /* allocate buffer for the line */
-			if (lineptr == NULL)
-				perror("malloc"), exit(EXIT_FAILURE);
 			for (j = 0; j < i; j++)
 				(*lineptr)[j] = buffer[j];
 			(*lineptr)[i] = '\0'; /* null terminator to the string */
@@ -78,10 +74,14 @@ ssize_t _getline(char **lineptr, size_t *n)
 		{
 			*lineptr = (char *)realloc(*lineptr, *n * 2);
 			if (*lineptr == NULL)
-				perror("realloc"), exit(EXIT_FAILURE);
+			{
+				perror("realloc");
+				free(*lineptr);
+				exit(EXIT_FAILURE);
+			}
 			*n *= 2;
 		}
-		(lineptr)[i++] = tmp;
+		(*lineptr)[i++] = (char)x;
 	}
 	_free(lineptr);
 }
