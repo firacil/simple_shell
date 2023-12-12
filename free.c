@@ -8,13 +8,14 @@
   */
 void _free(char **s)
 {
-	size_t len = 0, i;
+	size_t i;
 
 	if (s != NULL)
 	{
-		len = _strlen(*s);
-		for (i = 0; i < len; i++)
+		for (i = 0; s[i] != NULL; i++)
+		{
 			free(s[i]);
+		}
 
 		free(s);
 	}

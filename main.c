@@ -17,14 +17,14 @@ int main(void)
 	{
 		if (isatty(STDIN_FILENO))
 			_puts("$ ");
-		
+
 		read = _getline(&line, &len);
-		av = malloc(sizeof(char *) * MAX_READ);
+		av = malloc(sizeof(char *) * read);
 		if (av == NULL)
 			exit(EXIT_FAILURE);
+
 		if (read <= 0)
 		{
-			printf("\nExiting shell.\n");
 			free(line);
 			_free(av);
 			exit(EXIT_FAILURE);
@@ -41,6 +41,7 @@ int main(void)
 		if (count >= 0)
 			situation(av);
 
+		_free(av);
 	}
 	_free(av);
 	free(line);

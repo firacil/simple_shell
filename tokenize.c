@@ -10,7 +10,7 @@
 
 int _token(char *line, char **tokens)
 {
-	int count = 0;
+	int count = 0, i;
 	char *token = NULL;
 	const char *delim = " \n";
 
@@ -23,16 +23,25 @@ int _token(char *line, char **tokens)
 		if (tokens[count] == NULL)
 		{
 			perror("strdup failed");
+			free(tokens);
 			exit(EXIT_FAILURE);
 		}
 		count++;
 		token = _strtok(NULL, delim);
 	}
+
+	for (i = 0; i < count; ++i)
+	{
+		if (tokens[i][0] == '#')
+		{
+			count = i;
+			break;
+		}
+	}
 	tokens[count] = NULL;
 
 	if (token == NULL && count == 0)
 	{
-		_free(tokens);
 		return (-1);
 	}
 	return (count);

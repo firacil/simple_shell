@@ -30,6 +30,7 @@ void change_dir(char **arg)
 	/* get current directory */
 	char *curdir = get_currentdir();
 	char *prevdir = getenv(PREV_DIR_ENV);
+	char *newdir = NULL;
 
 	if (curdir == NULL)
 	{
@@ -44,15 +45,16 @@ void change_dir(char **arg)
 	}
 	else if (_strcmp(arg[1], "-") == 0)
 	{
-		/* handle "cd -" to go back to prev directory */
 		if (prevdir != NULL)
 		{
+			newdir = prevdir;
+
 			if (chdir(prevdir) != 0)
 				perror("cd");
 			/* swap current and previous directories in environment variable */
-			_puts(prevdir);
-			_puts("\n");
-			setenv(PREV_DIR_ENV, curdir, 1);
+			else
+				setenv(PREV_DIR_ENV, curdir, 1);
+			free(newdir);
 		}
 		else
 			return;

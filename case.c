@@ -26,6 +26,10 @@ int situation(char **argv)
 	{
 		currentenv();
 	}
+	else if (_strcmp(argv[0], "echo") == 0)
+	{
+		_echo(argv);
+	}
 	else
 	{
 		_execve(argv);

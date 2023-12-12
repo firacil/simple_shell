@@ -49,15 +49,14 @@ ssize_t _getline(char **lineptr, size_t *n)
 	static ssize_t buf_size, k;
 	size_t i = 0, j;
 	int x;
-	*lineptr = (char *)malloc(i + 1);
 
-	if (lineptr == NULL || n == NULL)
-		return (-1); /* Invalid argument */
 	while (1)
 	{
 		if (buf_pos == buf_size)
 		{
 			buf_size = read(STDIN_FILENO, buffer, READ_SIZE);
+			*lineptr = (char *)malloc(buf_size);
+
 			if (buf_size <= 0)
 				return (k == 0 ? buf_size : k);
 			buf_pos = 0;
@@ -76,12 +75,11 @@ ssize_t _getline(char **lineptr, size_t *n)
 			if (*lineptr == NULL)
 			{
 				perror("realloc");
-				free(*lineptr);
+				_free(lineptr);
 				exit(EXIT_FAILURE);
 			}
 			*n *= 2;
 		}
 		(*lineptr)[i++] = (char)x;
 	}
-	_free(lineptr);
 }

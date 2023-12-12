@@ -34,11 +34,13 @@ int myexit(char **av);
 void change_dir(char **arg);
 int situation(char **argv);
 char *get_currentdir(void);
+void _echo(char **argv);
 
 /* Strings */
 int _strcmp(const char *s1, const char *s2);
 size_t _strlen(const char *s);
 char *_strdup(const char *src);
-char *_strcpy(const char *s);
+char *_strcpy(char *dest, const char *src);
+char *_strcat(char *dest, const char *src);
 
 #endif

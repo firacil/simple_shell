@@ -26,18 +26,19 @@ char *getpath(char *command)
 	{
 		valcp = _strdup(value);
 		commlen = _strlen(command);
-		token = strtok(valcp, ":");
+		token = _strtok(valcp, ":");
 
 		while (token != NULL)
 		{
 			if (is_excutable(token))
 			{
-				dirlen = strlen(token);
+				dirlen = _strlen(token);
 				fpath = malloc(commlen + dirlen + 2);
-				strcpy(fpath, token);
-				strcat(fpath, "/");
-				strcat(fpath, command);
-				strcat(fpath, "\0");
+
+				_strcpy(fpath, token);
+				_strcat(fpath, "/");
+				_strcat(fpath, command);
+				_strcat(fpath, "\0");
 				if (stat(fpath, &buffer) == 0)
 				{
 					free(valcp);
@@ -46,7 +47,7 @@ char *getpath(char *command)
 				else
 					free(fpath);
 			}
-			token = strtok(NULL, ":");
+			token = _strtok(NULL, ":");
 		}
 		free(valcp);
 		if (stat(command, &buffer) == 0)
