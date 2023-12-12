@@ -51,47 +51,46 @@ size_t _strlen(const char *s)
   */
 char *_strdup(const char *src)
 {
-	size_t i, len = 0;
+	size_t len;
 	char *dup;
 
-	len = 1 + _strlen(src);
 	if (src == NULL)
+	{
 		return (NULL);
+	}
+	len = _strlen(src);
+	dup = malloc(len + 1);
 
-	dup = malloc(len * sizeof(char));
 	if (dup == NULL)
+	{
+		perror("malloc");
 		return (NULL);
-
-	for (i = 0; i < len; i++)
-		dup[i] = src[i];
-
-	dup[len] = '\0';
+	}
+	else
+	{
+		_strcpy(dup, src);
+	}
 
 	return (dup);
 }
 
 /**
   * _strcpy - a function that copies the string
-  * @s: the string
-  *
+  * @src: the string to be copied.
+  * @dest: string to be copied on.
   * Return: A pointer to the copied string
   */
-char *_strcpy(const char *s)
+char *_strcpy(char *dest, const char *src)
 {
-	size_t i, len = 0;
-	char *cpy;
+	char *org_dest = dest;
 
-	len = 1 + _strlen(s);
-	if (s == NULL)
+	if (dest == NULL || src == NULL)
+	{
 		return (NULL);
+	}
 
-	cpy = malloc(len * sizeof(char));
-	if (cpy == NULL)
-		return (NULL);
+	while ((*dest++ = *src++) != '\0')
+		;
 
-	for (i = 0; i < len; i++)
-		cpy[i] = s[i];
-
-	cpy[len] = '\0';
-	return (cpy);
+	return (org_dest);
 }
