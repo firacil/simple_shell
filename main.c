@@ -19,14 +19,13 @@ int main(void)
 			_puts("$ ");
 
 		read = _getline(&line, &len);
-		
 		if (read <= 0)
 		{
 			free(line);
 			_free(av);
 			exit(EXIT_FAILURE);
 		}
-		av =malloc(sizeof(char *) * read);
+		av = malloc(sizeof(char *) * read);
 		if (av == NULL)
 			exit(EXIT_FAILURE);
 
