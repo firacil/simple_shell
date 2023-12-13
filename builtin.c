@@ -29,7 +29,7 @@ void change_dir(char **arg)
 {
 	/* get current directory */
 	char *curdir = get_currentdir();
-	char *prevdir = getenv(PREV_DIR_ENV);
+	char *prevdir = _getenv(PREV_DIR_ENV);
 	char *newdir = NULL;
 
 	if (curdir == NULL)

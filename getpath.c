@@ -20,7 +20,7 @@ char *getpath(char *command)
 	char *valcp, *fpath, *token;
 	int commlen, dirlen;
 	struct stat buffer;
-	char *value = getenv("PATH");
+	char *value = _getenv("PATH");
 
 	if (value != NULL)
 	{

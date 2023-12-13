@@ -22,7 +22,6 @@ int main(void)
 		if (read <= 0)
 		{
 			free(line);
-			_free(av);
 			exit(EXIT_FAILURE);
 		}
 		av = malloc(sizeof(char *) * read);

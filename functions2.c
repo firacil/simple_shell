@@ -94,7 +94,7 @@ void _echo(char **argv)
 	}
 	else if (_strcmp(argv[1], "$PATH") == 0)
 	{
-		pvalue = getenv("PATH");
+		pvalue = _getenv("PATH");
 		_puts(pvalue);
 		_putchar('\n');
 	}
