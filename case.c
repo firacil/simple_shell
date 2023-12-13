@@ -11,12 +11,11 @@ int situation(char **argv)
 
 	if (argv[0] == NULL)
 	{
-		;
+		return (-1);
 	}
 	else if (_strcmp(argv[0], "exit") == 0)
 	{
 		ex_stat = myexit(argv);
-		_free(argv);
 		return (ex_stat);
 	}
 	else if (_strcmp(argv[0], "cd") == 0)

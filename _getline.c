@@ -64,7 +64,7 @@ char *_strtok(char *s, const char *delim)
 ssize_t _getline(char **lineptr, size_t *n)
 {
 	static char buffer[READ_SIZE];
-	static ssize_t buf_pos, buf_size, k;
+	static ssize_t buf_pos, buf_size = 0, k;
 	size_t i = 0, j;
 	int x;
 
@@ -74,11 +74,11 @@ ssize_t _getline(char **lineptr, size_t *n)
 		{
 			buf_size = read(STDIN_FILENO, buffer, READ_SIZE);
 			*lineptr = (char *)malloc(buf_size);
-			if (*lineptr == NULL)
 			{
 				perror("realloc"), _free(lineptr);
 				exit(EXIT_FAILURE);
 			}
+
 			if (buf_size <= 0)
 				return (k == 0 ? buf_size : k);
 			buf_pos = 0;
@@ -94,7 +94,6 @@ ssize_t _getline(char **lineptr, size_t *n)
 		if (i >= *n - 1)
 		{
 			*lineptr = (char *)malloc(*n * 2);
-			if (*lineptr == NULL)
 			{
 				perror("realloc"), _free(lineptr), exit(EXIT_FAILURE);
 			}
