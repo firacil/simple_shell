@@ -19,16 +19,17 @@ int main(void)
 			_puts("$ ");
 
 		read = _getline(&line, &len);
-		av = malloc(sizeof(char *) * read);
-		if (av == NULL)
-			exit(EXIT_FAILURE);
-
+		
 		if (read <= 0)
 		{
 			free(line);
 			_free(av);
 			exit(EXIT_FAILURE);
 		}
+		av =malloc(sizeof(char *) * read);
+		if (av == NULL)
+			exit(EXIT_FAILURE);
+
 		for (i = 0; i < read; i++)
 		{
 			if (line[i] == '\n')
@@ -38,7 +39,8 @@ int main(void)
 			}
 		}
 		count = _token(line, av);
-		if (count >= 0)
+
+		if (count > 0)
 			situation(av);
 
 		_free(av);
