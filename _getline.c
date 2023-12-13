@@ -1,6 +1,25 @@
 #include "main.h"
 
 /**
+  * _strchar - searches for first occurrences
+  * @str: pointer to string to be searched
+  * @character: character to be a located
+  * Return: pointer to first occurrences, otherwise NULL
+  */
+char *_strchar(const char *str, int character)
+{
+	while (*str != '\0')
+	{
+		if (*str == (char)character)
+		{
+			return ((char *)str);
+		}
+		str++;
+	}
+	return (NULL);
+}
+
+/**
   * _strtok - a function splits a string into tokens
   * @s: the string to be tokenized
   * @delim: the delimiter characters
@@ -15,14 +34,14 @@ char *_strtok(char *s, const char *delim)
 	if (s == NULL)
 		s = last;
 
-	while (*s != '\0' && strchr(delim, *s) != NULL)
+	while (*s != '\0' && _strchar(delim, *s) != NULL)
 		s++;
 
 	if (*s == '\0')
 		return (NULL);
 
 	start = s;
-	while (*s != '\0' && strchr(delim, *s) == NULL)
+	while (*s != '\0' && _strchar(delim, *s) == NULL)
 		s++;
 
 	if (*s != '\0')
