@@ -14,7 +14,7 @@ int myexit(char **av)
 		ex_stat = _atoi(av[1]);
 	}
 
-	free(av);
+	_free(av);
 	exit(ex_stat);
 	return (ex_stat);
 }

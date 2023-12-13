@@ -16,6 +16,7 @@ int situation(char **argv)
 	else if (_strcmp(argv[0], "exit") == 0)
 	{
 		ex_stat = myexit(argv);
+		_free(argv);
 		return (ex_stat);
 	}
 	else if (_strcmp(argv[0], "cd") == 0)

@@ -23,7 +23,7 @@ int _token(char *line, char **tokens)
 		if (tokens[count] == NULL)
 		{
 			perror("strdup failed");
-			free(tokens);
+			/*free(tokens);*/
 			exit(EXIT_FAILURE);
 		}
 		count++;
@@ -44,6 +44,7 @@ int _token(char *line, char **tokens)
 	{
 		return (-1);
 	}
+	free(line);
 	return (count);
 }
 

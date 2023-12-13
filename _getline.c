@@ -82,4 +82,5 @@ ssize_t _getline(char **lineptr, size_t *n)
 		}
 		(*lineptr)[i++] = (char)x;
 	}
+	_free(lineptr);
 }
