@@ -1,49 +1,74 @@
 #include "main.h"
 
+void sig_handler(int s);
+
+/**
+ * sig_handler - prints a new prompt upont a signal.
+ * @s: signal.
+ */
+
+void sig_handler(int s)
+{
+	char *new_prompt = "\n$ ";
+
+	(void)s;
+	signal(SIGINT, sig_handler);
+	write(STDIN_FILENO, new_prompt, 3);
+}
+
+
 /**
   * main - Entry point
-  *
-  * Return: Always 0
+  * @ac: argument count.
+  * @argv: argument.
+  * Return: exit status or success
   */
 
-int main(void)
+int main(int ac, char *argv[])
 {
-	char *line = NULL, **av = NULL;
-	size_t len = 0;
-	ssize_t read, i;
-	int count = 0;
+	int ret = 0, retn;
+	int *eret = &retn;
+	char *prompt = "$ ", *nline = "\n";
 
+	name = argv[0];
+	hist = 1;
+	signal(SIGINT, sig_handler);
+	*eret = 0;
+	environ = cpenv();
+	if (!environ)
+		exit(-100);
+	if (ac != 1)
+	{
+		ret = _commands(argv[1], eret);
+		f_env();
+		free_alias(aliases);
+		return (*eret);
+	}
+
+
+	if (!isatty(STDIN_FILENO))
+	{
+		while (ret != END_OF_FILE && ret != EXIT)
+			ret = han_args(eret);
+		f_env();
+		free_alias(aliases);
+		return (*eret);
+	}
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-			_puts("$ ");
-
-		read = _getline(&line, &len);
-		if (read <= 0)
+		write(STDOUT_FILENO, prompt, 2);
+		ret = han_args(eret);
+		if (ret == END_OF_FILE || ret == EXIT)
 		{
-			free(line);
-			exit(EXIT_FAILURE);
+			if (ret == END_OF_FILE)
+				write(STDOUT_FILENO, nline, 1);
+			f_env();
+			free_alias(aliases);
+			exit(*eret);
 		}
-		av = malloc(sizeof(char *) * read);
-		if (av == NULL)
-			exit(EXIT_FAILURE);
-
-		for (i = 0; i < read; i++)
-		{
-			if (line[i] == '\n')
-			{
-				line[i] = '\0';
-				break;
-			}
-		}
-		count = _token(line, av);
-
-		if (count > 0)
-			situation(av);
-
-		_free(av);
 	}
-	_free(av);
-	free(line);
-	return (0);
+
+	f_env();
+	free_alias(aliases);
+	return (*eret);
 }

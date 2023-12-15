@@ -1,112 +1,144 @@
 #include "main.h"
 
+int _myexit(char **args, char **front);
+int _cd(char **args, char __attribute__((__unused__)) **front);
+/* intt _help(char **args, char __attribute__((__unused__)) **front); */
+
+
 /**
- * myexit - a function exits the shell
- * @av: argument passed
- * Return: status which helps to exit.
+ * get_builtin - matches a commandwith my builtin.
+ * @command: command to match.
+ * Return: function pointer to the correspondin builtin.
  */
-int myexit(char **av)
+
+int (*get_builtin(char *command))(char **args, char **front)
 {
-	int ex_stat = EXIT_SUCCESS;
+	builtint_t fun[] = {
+		{ "exit", _myexit },
+		{ "env", _env },
+		{ "cd", _cd },
+		{ NULL, NULL }
+	};
+	int i;
 
-	if (av[1] != NULL)
+	for (i = 0; fun[i].name; i++)
 	{
-		ex_stat = _atoi(av[1]);
+		if (_strcmp(fun[i].name, command) == 0)
+			break;
 	}
-
-	_free(av);
-	exit(ex_stat);
-	return (ex_stat);
+	return (fun[i].f);
 }
 
-#define PREV_DIR_ENV "OLDPWD"
 /**
- * change_dir - a function implement the builtin command cd
- * @arg: pointer to array of pointer
- * Return: Nothing
+ * _myexit - exits my shell.
+ * @args: array of arguments contain exit val.
+ * @front: double pointer to beginning of args.
+ * Return: status val or fail
  */
-void change_dir(char **arg)
+
+int _myexit(char **args, char **front)
 {
-	/* get current directory */
-	char *curdir = get_currentdir();
-	char *prevdir = _getenv(PREV_DIR_ENV);
-	char *newdir = NULL;
+	int i, len_int = 10;
+	unsigned int num = 0, max = 1 << (sizeof(int) * 8 - 1);
 
-	if (curdir == NULL)
+	if (args[0])
 	{
-		perror("get_currentdir");
-		return;
-	}
-
-	if (arg[1] == NULL)
-	{
-		free(curdir);
-		return;
-	}
-	else if (_strcmp(arg[1], "-") == 0)
-	{
-		if (prevdir != NULL)
+		if (args[0][0] == '+')
 		{
-			newdir = prevdir;
-
-			if (chdir(prevdir) != 0)
-				perror("cd");
-			/* swap current and previous directories in environment variable */
-			else
-				setenv(PREV_DIR_ENV, curdir, 1);
-			free(newdir);
+			i = 1;
+			len_int++;
 		}
-		else
-			return;
+		for (; args[0][i]; i++)
+		{
+			if (i <= len_int && args[0][i] >= '0' && args[0][i] <= '9')
+				num = (num * 10) + (args[0][i] - '0');
+			else
+				return (_error(--args, 2));
+		}
 	}
 	else
 	{
-		if (chdir(arg[1]) != 0) /* change to specfied dir*/
-			perror("cd");
-		else
-			setenv(PREV_DIR_ENV, curdir, 1);
+		return (-3);
 	}
-	free(curdir);
+	if (num > max - 1)
+		return (_error(--args, 2));
+	args -= 1;
+	free_args(args, front);
+	f_env();
+	exit(num);
 }
 
 /**
- * currentenv - a function mplement the built-in env command
- * Return: Nothign
+ * _cd - changes current dir.
+ * @args: array of arguments.
+ * @front: double pointer to begin of args.
+ * Return: not dir -2, err -1 or 0.
  */
-void currentenv(void)
-{
-	char **env = environ;
 
-	while (*env != NULL)
-	{
-		_puts(*env);
-		_puts("\n");
-		env++;
-	}
-}
-#define MAX_PATH 4096
-/**
- * get_currentdir - a function check the current working directory
- *
- * Return: a char type pointer
- */
-char *get_currentdir(void)
+int _cd(char **args, char __attribute__((__unused__)) **front)
 {
-	/* allocating mem for buffer that store current working directory*/
-	char *buf = malloc(MAX_PATH);
+	char **dir_info = NULL, *new_line = "\n";
+	char *oldpwd = NULL, *pwd = NULL;
+	struct stat dir;
 
-	/* checking if malloc is success*/
-	if (buf != NULL)
+	oldpwd = getcwd(oldpwd, 0);
+	if (!oldpwd)
+		return (-1);
+
+	if (args[0])
 	{
-		/* using getcwd to get cwd */
-		if (getcwd(buf, MAX_PATH) == NULL)
+		if (*(args[0]) == '-' || _strcmp(args[0], "--") == 0)
 		{
-			/*check for getcwd fail */
-			perror("getcwd");
-			free(buf);
-			return (NULL);
+			if ((args[0][1] == '-' && args[0][2] == '\0') ||
+					args[0][1] == '\0')
+			{
+				if (_getenv("OLDPWD") != NULL)
+					(chdir(*_getenv("OLDPWD") + 7));
+			}
+			else
+			{
+				free(oldpwd);
+				return (_error(args, 2));
+			}
+		}
+		else
+		{
+			if (stat(args[0], &dir) == 0 && S_ISDIR(dir.st_mode)
+					&& ((dir.st_mode & S_IXUSR) != 0))
+				chdir(args[0]);
+			else
+			{
+				free(oldpwd);
+				return (_error(args, 2));
+			}
 		}
 	}
-	/* return the buf containing cur working dir */
-	return (buf);
+	else
+	{
+		if (_getenv("HOME") != NULL)
+			chdir(*(_getenv("HOME")) + 5);
+	}
+
+	pwd = getcwd(pwd, 0);
+	if (!pwd)
+		return (-1);
+
+	dir_info[0] = "OLDPWD";
+	dir_info[1] = oldpwd;
+	if (_setenv(dir_info, dir_info) == -1)
+		return (-1);
+
+	dir_info[0] = "PWD";
+	dir_info[1] = pwd;
+	if (_setenv(dir_info, dir_info) == -1)
+		return (-1);
+	if (args[0] && args[0][0] == '-' && args[0][1] != '-')
+	{
+		write(STDOUT_FILENO, pwd, _strlen(pwd));
+		write(STDOUT_FILENO, new_line, 1);
+	}
+	free(oldpwd);
+	free(pwd);
+	free(dir_info);
+	return (0);
 }

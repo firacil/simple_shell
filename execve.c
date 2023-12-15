@@ -3,43 +3,49 @@
 /**
   * _execve - a function execute command that pass to it
   * @av: a pointer to an array of pointers held the command
-  *
-  * Return: Alawys 0
+  * @first: double pointer to begin of args.
+  * Return: error code or Alawys 0.
   */
-int _execve(char **av)
+int _execve(char **av, char **first)
 {
-	char *command = NULL;
-	char *actual = NULL;
+	pid_t my_child;
+	int stat, flag = 0, ret = 0;
+	char *command = av[0];
 
-	if (av)
+	if (command[0] != '/' && command[0] != '.')
+		flag = 1, command = getpath(command);
+	if (!command || (access(command, F_OK) == -1))
 	{
-		pid_t my_child;
-		int status;
-
+		if (errno == EACCES)
+			ret = (_error(av, 126));
+		else
+			ret = (_error(av, 127));
+	}
+	else
+	{
 		my_child = fork();
 		if (my_child == -1)
 		{
-			perror("Error");
-			return (-1);
+			if (flag)
+				free(command);
+			perror("Error child:");
+			return (1);
 		}
-		else if (my_child == 0)
+		if (my_child == 0)
 		{
-			command = av[0];
-			actual = getpath(command);
-
-			if (execve(actual, av, NULL) == -1)
-			{
-				perror("/hsh");
-				exit(EXIT_FAILURE);
-			}
+			execve(command, av, environ);
+			if (errno == EACCES)
+				ret = (_error(av, 126));
+			f_env(), free_args(av, first), free_alias(aliases);
+			_exit(ret);
 		}
 		else
 		{
-			waitpid(my_child, &status, 0);
-
-			if (actual != NULL)
-				free(actual);
+			wait(&stat);
+			ret = WEXITSTATUS(stat);
 		}
 	}
-	return (0);
+	if (flag)
+		free(command);
+	return (ret);
 }

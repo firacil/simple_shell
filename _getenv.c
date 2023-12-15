@@ -1,12 +1,63 @@
 #include "main.h"
 
+char **cpenv(void);
+void f_env(void);
+char **_getenv(const char *var);
+
+/**
+ * cpenv - creates a copy of the environment.
+ * Return: If an error occurs - NULL / double pointer to new copy.
+ */
+
+char **cpenv(void)
+{
+	char **new_env;
+	size_t size;
+	int index;
+
+	for (size = 0; environ[size]; size++)
+		;
+	new_env = malloc(sizeof(char *) * (size + 1));
+	if (!new_env)
+		return (NULL);
+
+	for (index = 0; environ[index]; index++)
+	{
+		new_env[index] = malloc(_strlen(environ[index]) + 1);
+
+		if (!new_env[index])
+		{
+			for (index--; index >= 0; index--)
+				free(new_env[index]);
+			free(new_env);
+			return (NULL);
+		}
+		_strcpy(new_env[index], environ[index]);
+	}
+	new_env[index] = NULL;
+
+	return (new_env);
+}
+
+/**
+ * f_env - frees the environments copy.
+ */
+void f_env(void)
+{
+	int index;
+
+	for (index = 0; environ[index]; index++)
+		free(environ[index]);
+	free(environ);
+}
+
 /**
  * _getenv - get the environment variable.
  * @var: var to detect.
  * Return: array pointer.
  */
 
-char *_getenv(const char *var)
+char **_getenv(const char *var)
 {
 	int ind, len;
 
@@ -14,7 +65,7 @@ char *_getenv(const char *var)
 	for (ind = 0; environ[ind]; ind++)
 	{
 		if (_strncmp(var, environ[ind], len) == 0)
-			return (environ[ind]);
+			return (&environ[ind]);
 	}
 	return (NULL);
 }

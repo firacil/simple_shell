@@ -29,75 +29,21 @@ char *_strcat(char *dest, const char *src)
 }
 
 /**
- * pr_digit - print digit recursively.
- * @n: number
- * Return: None.
+ * _strncat - concatenates two strings where n number.
+ * @dest: pointer to dest string.
+ * @src: pointer to source string.
+ * @n: n bytes to copy from src.
+ * Return: pointer to dest.
  */
 
-void pr_digit(int n)
+char *_strncat(char *dest, const char *src, size_t n)
 {
-	if (n == 0)
-	{
-		return;
-	}
+	size_t d_len = _strlen(dest);
+	size_t i;
 
-	pr_digit(n / 10);
-	_putchar('0' + n % 10);
-}
+	for (i = 0; i < n && src[i] != '\0'; i++)
+		dest[d_len + i] = src[i];
+	dest[d_len + i] = '\0';
 
-/**
- * printint - print intger.
- * @num: number.
- * Return: None.
- */
-
-void printint(int num)
-{
-	/* handle negeative number */
-	if (num < 0)
-	{
-		_putchar('-');
-		num = -num;
-	}
-	else if (num == 0)
-	{
-		_putchar('0');
-	}
-	else
-	{
-		pr_digit(num);
-	}
-}
-
-/**
- * _echo - handle variables.
- * @argv: string passed.
- * Return: none
- */
-
-void _echo(char **argv)
-{
-	int stat, pid;
-	char *pvalue;
-
-	if (_strcmp(argv[1], "$?") == 0)
-	{
-		stat = system("true");
-		printint(stat);
-		_putchar('\n');
-	}
-	else if (_strcmp(argv[1], "$$") == 0)
-	{
-		pid = getpid();
-		printint(pid);
-		_putchar('\n');
-	}
-	else if (_strcmp(argv[1], "$PATH") == 0)
-	{
-		pvalue = _getenv("PATH");
-		_puts(pvalue);
-		_putchar('\n');
-	}
-	else
-		return;
+	return (dest);
 }
